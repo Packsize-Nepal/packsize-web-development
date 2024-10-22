@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Packsize Box Count and CO2 Savings</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+      }
+      /* Upper Navbar */
+      .banner-main {
+        background-color: #b8bf34;
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        padding: 5px 20px;
+        /* flex-wrap: wrap; */
+        text-align: center;
+        font-size: 1.2em;
+        height: 50px;
+        font-family: stolz, sans-serif;
+      }
+
+      .banner-main span {
+        display: block;
+      }
+
+      .sliding-container .sliding-content a {
+        color: white;
+        text-decoration: none;
+      }
+
+      /* Fading content for mobile screens */
+      .sliding-container {
+        display: none; /* Hidden by default */
+        width: 100%;
+        background-color: #b8bf34;
+        height: 50px;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        font-size: 1.3em;
+      }
+
+      .sliding-content {
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        color: white;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 1s ease, visibility 0s 1s;
+      }
+      .sliding-dynamic-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
+      .sliding-content.active {
+        opacity: 1;
+        visibility: visible;
+        transition: opacity 1s ease, visibility 0s 0s;
+      }
+      #sustainability-calculator-link-2 {
+        text-decoration: none;
+        color: white;
+      }
+      #sustainability-calculator-link-1 {
+        text-decoration: none;
+        color: white;
+      }
+      #slide-1 {
+        font-weight: bold;
+      }
+      #slide-3 {
+        gap: 1rem;
+      }
+      #boxes-created-text,
+      #co2-saved-text {
+        display: flex;
+      }
+      #boxes-created-text {
+        gap: 0.5rem;
+      }
+      #boxes-created-uq {
+        width: 115px;
+        text-align: left;
+        font-weight: bold;
+      }
+      #co2-saved-uq {
+        width: 100px;
+        text-align: left;
+        font-weight: bold;
+      }
+
+      .vertical-line {
+        display: inline-block;
+        width: 0.01em; /* Adjust thickness */
+        height: 20px; /* Adjust height */
+        background-color: whitesmoke; /* Line color */
+      }
+      #boxes-created-2 {
+        width: 100px;
+        text-align: left;
+        font-weight: bold;
+      }
+      #co2-saved-2 {
+        width: 100px;
+        text-align: left;
+        font-weight: bold;
+      }
+      @media (min-width: 810px) and (max-width: 1100px) {
+        .banner-main {
+          gap: 0.5rem;
+          font-size: 1em;
+          padding: 5px 10px;
+        }
+        #boxes-created-uq {
+          width: 100px;
+        }
+        #co2-saved-uq {
+          width: 90px;
+        }
+      }
+      @media (min-width: 767px) and (max-width: 910px) {
+        .banner-main {
+          font-size: 0.9em;
+          gap: 0.3rem;
+          padding: 5px 3px;
+        }
+        #boxes-created-uq {
+          width: 90px;
+        }
+        #co2-saved-uq {
+          width: 80px;
+        }
+      }
+
+      @media (min-width: 767px) and (max-width: 900px) {
+        #boxes-created-uq {
+          width: 90px;
+        }
+        #co2-saved-uq {
+          width: 75px;
+        }
+      }
+      @media (min-width: 767px) and (max-width: 800px) {
+        #boxes-created-uq {
+          width: 85px;
+        }
+        #co2-saved-uq {
+          width: 75px;
+        }
+      }
+
+      @media (max-width: 785px) {
+        .banner-main {
+          display: none;
+        }
+        .sliding-container {
+          display: flex;
+        }
+      }
+
+      @media (min-width: 786px) {
+        .sliding-container {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="banner-top">
+      <div class="banner-main">
+        <span id="sustainability-calculator-link-1">
+          Click
+          <a
+            href="/resources/sustainability-calculator"
+            id="sustainability-calculator-link-1"
+            ><u>HERE</u></a
+          >
+          Calculate Your Savings Today!
+        </span>
+        <span class="vertical-line"></span>
+        <div id="boxes-created-text">
+          <div>Boxes Created</div>
+          <div id="boxes-created-uq"></div>
+        </div>
+        <span class="vertical-line"></span>
+        <div id="co2-saved-text">
+          <div></div>
+          <div id="co2-saved-uq"></div>
+          <div id="co2-saved-unit">CO2 Saved (lbs)</div>
+        </div>
+      </div>
+
+      <!-- Fading container for mobile screens -->
+      <div class="sliding-container">
+        <div class="sliding-content active" id="slide-1">
+          Calculate Your Savings
+          <a
+            href="/resources/sustainability-calculator"
+            id="sustainability-calculator-link-2"
+            ><u>HERE</u></a
+          >
+        </div>
+        <div class="sliding-content sliding-dynamic-content" id="slide-2">
+          <div id="boxes-created-text-2">Boxes Created</div>
+          <div id="boxes-created-2"></div>
+        </div>
+        <div class="sliding-content sliding-dynamic-content" id="slide-3">
+          <div id="co2-saved-2"></div>
+          <div id="co2-saved-unit-2">CO2 Saved (lbs)</div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const startingBoxes = 1600000000;
+        const startingCO2 = 900000000; // Starting CO2 in lbs
+        const staticStartDate = new Date("2024-09-30T00:00:00Z").getTime();
+        // updating values immediately here
+        updateValues();
+
+        // Detect if the user's locale uses metric (kg) or imperial (lbs)
+        function isMetricLocale() {
+          const locale = Intl.NumberFormat().resolvedOptions().locale;
+          const metricRegions = [
+            "fr",
+            "de",
+            "es",
+            "it",
+            "nl",
+            "pt",
+            "eu",
+            "se",
+            "fi",
+            "no",
+          ];
+          return metricRegions.some((region) =>
+            locale.toLowerCase().startsWith(region)
+          );
+        }
+
+        // Function to format number with commas or decimal
+        function formatNumber(num) {
+          const locale = Intl.NumberFormat().resolvedOptions().locale;
+          return num.toLocaleString(locale);
+        }
+        // Convert lbs to kg
+        function convertLbsToKg(lbs) {
+          return Math.round(lbs * 0.45359237); // Convert pounds to kilograms
+        }
+
+        // Update boxes and CO2 values every 0.1 second
+        function updateValues() {
+          const isMetric = isMetricLocale();
+
+          const currentTime = Date.now();
+          const elapsedMilliseconds = currentTime - staticStartDate;
+
+          // Logic to update box produced, per 0.1 second -> 1 boxes i.e, per 1 second -> 10 boxes
+          const boxesProduced =
+            startingBoxes + Math.floor(elapsedMilliseconds / 100);
+
+          // Logic to update CO2 saved, per 0.14 second -> 1 lbs i.e, per 1.4 second -> 10 lbs
+          const co2Saved = startingCO2 + Math.floor(elapsedMilliseconds / 140);
+
+          // Get the correct unit for CO2
+          const co2Unit = isMetric ? "kg" : "lbs";
+
+          if (isMetric) {
+            // Convert CO2 from lbs to kg if necessary
+            const co2SavedKg = convertLbsToKg(co2Saved);
+            if (window.innerWidth <= 785) {
+              document.getElementById(
+                "boxes-created-2"
+              ).innerText = ` ${formatNumber(boxesProduced)}`;
+              document.getElementById(
+                "co2-saved-2"
+              ).innerText = `${formatNumber(co2SavedKg)} `;
+              document.getElementById(
+                "co2-saved-unit-2"
+              ).innerText = `CO2 Saved(${co2Unit})`;
+            } else {
+              document.getElementById(
+                "boxes-created-uq"
+              ).innerText = ` ${formatNumber(boxesProduced)}`;
+              document.getElementById(
+                "co2-saved-uq"
+              ).innerText = `${formatNumber(co2SavedKg)} `;
+              document.getElementById(
+                "co2-saved-unit"
+              ).innerText = `CO2 Saved(${co2Unit})`;
+            }
+          } else {
+            // For lbs, directly use the saved value
+            if (window.innerWidth <= 785) {
+              document.getElementById(
+                "boxes-created-2"
+              ).innerText = ` ${formatNumber(boxesProduced)}`;
+              document.getElementById(
+                "co2-saved-2"
+              ).innerText = `${formatNumber(co2Saved)}`;
+              document.getElementById(
+                "co2-saved-unit-2"
+              ).innerText = `CO2 Saved(${co2Unit})`;
+            } else {
+              document.getElementById("boxes-created-uq").innerText =
+                formatNumber(boxesProduced);
+              document.getElementById(
+                "co2-saved-uq"
+              ).innerText = `${formatNumber(co2Saved)}`;
+              document.getElementById(
+                "co2-saved-unit"
+              ).innerText = `CO2 Saved(${co2Unit})`;
+            }
+          }
+        }
+
+        setInterval(updateValues, 100);
+
+        // Sliding functionality for mobile screens
+        let currentSlide = 0;
+        const slides = document.querySelectorAll(".sliding-content");
+        const totalSlides = slides.length;
+
+        function showNextSlide() {
+          slides[currentSlide].classList.remove("active");
+          currentSlide = (currentSlide + 1) % totalSlides;
+          slides[currentSlide].classList.add("active");
+        }
+
+        // Change slides every 3 seconds
+        setInterval(showNextSlide, 3000);
+      });
+    </script>
+  </body>
+</html>
